@@ -419,7 +419,7 @@ function PipelineDiagram() {
 function AgentExecFlow() {
   const steps: { label: string; sub: string; color: string; annotation: { event: string; desc: string; color: string } | null }[] = [
     { label: "User Prompt", sub: "Opal interface", color: "#a5b4fc", annotation: null },
-    { label: "Agent Router", sub: "selects agent type", color: "#818cf8", annotation: { event: "Discovery event", desc: "Which agents are found and opened — discoverability measured at entry", color: "#c4b5fd" } },
+    { label: "Agent Router", sub: "selects agent type", color: "#818cf8", annotation: { event: "Discovery event", desc: "Which agents are found and opened: discoverability measured at entry", color: "#c4b5fd" } },
     { label: "Tool Chain", sub: "sequential invocations", color: "#6366f1", annotation: { event: "Tool invocation", desc: "Every call: name · execution context · outcome · latency", color: "#818cf8" } },
     { label: "LLM Inference", sub: "per tool call", color: "#4f46e5", annotation: null },
     { label: "Response", sub: "streamed output", color: "#34d399", annotation: { event: "Agent execution", desc: "Task completion: agent type · context · success signal", color: "#6366f1" } },
@@ -1403,12 +1403,12 @@ function WorkflowOrchestrationDiagram() {
     { label: "Experiment Velocity", color: "#f59e0b" },
   ];
   const continuedSteps = [
-    { n: "03", label: "Tools fetch live data", sub: "Each agent calls its MCP tools, executing structured queries against Optimizely Analytics — live Snowflake data, no cache", color: "#818cf8" },
+    { n: "03", label: "Tools fetch live data", sub: "Each agent calls its MCP tools, executing structured queries against Optimizely Analytics: live Snowflake data, no cache", color: "#818cf8" },
     { n: "04", label: "Aggregate & synthesise", sub: "Workflow agent collects sub-agent outputs, identifies key movements, flags anomalies, and drafts the narrative layer", color: "#a5b4fc" },
     { n: "05", label: "Format report", sub: "Structures the output as a Coda document, email body, or Teams card depending on the configured distribution target", color: "#f59e0b" },
   ];
   const dests = [
-    { name: "Coda", desc: "Living document — ELT can comment, link, and reference across quarters", color: "#f59e0b" },
+    { name: "Coda", desc: "Living document: ELT can comment, link, and reference across quarters", color: "#f59e0b" },
     { name: "Outlook", desc: "Monthly email to Executive Leadership Team with embedded highlights", color: "#0078D4" },
     { name: "Teams", desc: "Channel message with summary card and link to full Coda report", color: "#6264A7" },
   ];
@@ -1661,7 +1661,7 @@ function AgentArchitectureStack() {
             )}
           </div>
           <p style={{ fontSize: "0.7rem", color: "var(--foreground-muted)", margin: 0, lineHeight: 1.55 }}>
-            Structured functions with typed parameters — execute a specific OA query and return clean JSON. No natural-language interpretation at the data layer.
+            Structured functions with typed parameters: execute a specific OA query and return clean JSON. No natural-language interpretation at the data layer.
           </p>
         </div>
       </div>
@@ -1689,7 +1689,7 @@ function AgentArchitectureStack() {
             ))}
           </div>
           <p style={{ fontSize: "0.7rem", color: "var(--foreground-muted)", margin: 0, lineHeight: 1.55 }}>
-            OA executes SQL directly against Snowflake — no sync, no export, no stale cache. Agents always see the same numbers as a PM looking at OA in real-time.
+            OA executes SQL directly against Snowflake: no sync, no export, no stale cache. Agents always see the same numbers as a PM looking at OA in real-time.
           </p>
         </div>
       </div>
@@ -1713,7 +1713,7 @@ const CHAPTERS = [
 function StoryArc() {
   return (
     <div style={{ background: "var(--surface)", border: "1px solid var(--border-subtle)", borderRadius: "16px", padding: "20px 24px" }}>
-      <div style={{ fontSize: "0.58rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--foreground-subtle)", marginBottom: "16px" }}>The story — four chapters</div>
+      <div style={{ fontSize: "0.58rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--foreground-subtle)", marginBottom: "16px" }}>The story: four chapters</div>
       <div style={{ display: "flex", alignItems: "stretch", gap: "0", overflowX: "auto" }}>
         {CHAPTERS.map((c, i, arr) => (
           <React.Fragment key={c.n}>
@@ -1784,7 +1784,7 @@ function InstrumentationFlow() {
     { n: 3, label: "Register", desc: "Events added to Segment Tracking Plan (schema registry)", color: "#818cf8", gate: false },
     { n: 4, label: "Instrument FE", desc: "Frontend engineers add the JS SDK calls", color: "#a5b4fc", gate: false },
     { n: 5, label: "Instrument BE", desc: "Backend instruments via HTTP API (async queue)", color: "#a5b4fc", gate: false },
-    { n: 6, label: "Protocols gate", desc: "Segment Protocols conditionally blocks or allows events based on Tracking Plan rules — unplanned events are rejected at ingestion, no manual intervention needed at scale", color: "#f59e0b", gate: true },
+    { n: 6, label: "Protocols gate", desc: "Segment Protocols conditionally blocks or allows events based on Tracking Plan rules: unplanned events are rejected at ingestion, no manual intervention needed at scale", color: "#f59e0b", gate: true },
     { n: 7, label: "Warehouse", desc: "Approved events propagate to Snowflake in near-real-time", color: "#29B5E8", gate: false },
     { n: 8, label: "dbt + surfaces", desc: "dbt models transform events; surfaced in OA & PowerBI", color: "#FF694B", gate: false },
   ];
@@ -2156,7 +2156,7 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Instrumentation process — visual flow */}
+            {/* Instrumentation process: visual flow */}
             <div style={{ marginTop: "32px" }}>
               <div style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--foreground-subtle)", marginBottom: "14px" }}>
                 Gating process: from proposal to production
@@ -3142,7 +3142,7 @@ export default function Home() {
             <Label>Agentic AI for Analytics</Label>
             <Heading className="gradient-heading">Building analytics agents on top of Opal: specialized agents, MCP tools, and workflow orchestration</Heading>
             <Body>
-              I built a two-layer agent system inside Opal. Specialized agents each own one analytics domain and expose their capabilities as MCP tools — typed functions that execute live queries against Optimizely Analytics. Workflow agents sit above them, orchestrating the specialists in sequence or parallel, synthesising their outputs into a narrative, and pushing the result to Coda, Outlook, or Teams. The monthly product report runs on this stack automatically.
+              I built a two-layer agent system inside Opal. Specialized agents each own one analytics domain and expose their capabilities as MCP tools: typed functions that execute live queries against Optimizely Analytics. Workflow agents sit above them, orchestrating the specialists in sequence or parallel, synthesising their outputs into a narrative, and pushing the result to Coda, Outlook, or Teams. The monthly product report runs on this stack automatically.
             </Body>
 
             {/* Architecture stack */}
@@ -3176,10 +3176,10 @@ export default function Home() {
               <div style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--accent)", marginBottom: "8px" }}>Why this architecture over one large agent</div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "12px" }}>
                 {[
-                  { point: "Reusability", desc: "The Engagement Analyst agent isn't only used by the Monthly Report workflow — the same agent handles on-demand PM queries. One agent, many callers.", color: "#6366f1" },
-                  { point: "Debuggability", desc: "When a number looks wrong, the fault is isolated to one agent and one tool — not a monolithic prompt that produces everything at once.", color: "#10b981" },
+                  { point: "Reusability", desc: "The Engagement Analyst agent isn't only used by the Monthly Report workflow: the same agent handles on-demand PM queries. One agent, many callers.", color: "#6366f1" },
+                  { point: "Debuggability", desc: "When a number looks wrong, the fault is isolated to one agent and one tool: not a monolithic prompt that produces everything at once.", color: "#10b981" },
                   { point: "Typed data layer", desc: "MCP tools return structured JSON, not natural language. The synthesis layer gets clean data, not agent-interpreted prose that can drift.", color: "#f59e0b" },
-                  { point: "Composable coverage", desc: "A new workflow (board prep, sales territory briefing) is assembled from existing agents — not built from scratch each time.", color: "#a5b4fc" },
+                  { point: "Composable coverage", desc: "A new workflow (board prep, sales territory briefing) is assembled from existing agents: not built from scratch each time.", color: "#a5b4fc" },
                 ].map(({ point, desc, color }) => (
                   <div key={point}>
                     <div style={{ fontSize: "0.8rem", fontWeight: 700, color, marginBottom: "4px" }}>{point}</div>
@@ -3199,7 +3199,7 @@ export default function Home() {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "10px", marginBottom: "16px" }}>
                 {[
                   { persona: "Product Manager", prompt: "\"What's the feature adoption breakdown for Experimentation this quarter?\"", color: "#6366f1", icon: "PM" },
-                  { persona: "CS Lead", prompt: "\"Pull the engagement profile for [Account] — renewal is next week.\"", color: "#10b981", icon: "CS" },
+                  { persona: "CS Lead", prompt: "\"Pull the engagement profile for [Account]: renewal is next week.\"", color: "#10b981", icon: "CS" },
                   { persona: "Executive", prompt: "\"Give me the board-ready engagement summary across all product lines.\"", color: "#f59e0b", icon: "EX" },
                   { persona: "Sales", prompt: "\"What does an engaged Experimentation account look like vs this prospect?\"", color: "#f43f5e", icon: "SA" },
                 ].map(({ persona, prompt, color, icon }) => (
