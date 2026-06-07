@@ -1903,10 +1903,9 @@ export default function Home() {
               Product Intelligence Platform
             </span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.8rem", color: "var(--foreground-muted)" }}>
-            Wahid Tawsif Ratul
-            <span style={{ color: "var(--foreground-subtle)" }}>·</span>
-            <span style={{ color: "var(--accent)", fontWeight: 600 }}>Product Analytics Engineer</span>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "2px" }}>
+            <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--foreground)" }}>Wahid Tawsif Ratul</span>
+            <span style={{ fontSize: "0.72rem", color: "var(--accent)" }}>Data Scientist · Product Manager</span>
           </div>
         </div>
       </nav>
@@ -3467,8 +3466,9 @@ export default function Home() {
                 background: "linear-gradient(135deg, #6366f1, #818cf8)",
                 boxShadow: "0 0 8px rgba(99,102,241,0.3)",
               }} />
-              <span style={{ fontSize: "0.82rem", color: "var(--foreground-subtle)" }}>
-                Wahid Tawsif Ratul · Product Analytics Engineer · Optimizely
+              <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--foreground)" }}>Wahid Tawsif Ratul</span>
+                <span style={{ fontSize: "0.72rem", color: "var(--foreground-subtle)" }}>Data Scientist · Product Manager</span>
               </span>
             </div>
             <a
