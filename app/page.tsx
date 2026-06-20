@@ -250,7 +250,7 @@ const TOOLS: Record<string, { color: string; bg: string; svg: React.ReactNode; c
     category: "Transformation",
     svg: <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" stroke="#FF694B" strokeWidth="1.8" strokeLinejoin="round"/><path d="M4 7L12 12L20 7" stroke="#FF694B" strokeWidth="1.8" strokeLinecap="round" opacity="0.5"/><line x1="12" y1="12" x2="12" y2="22" stroke="#FF694B" strokeWidth="1.8" opacity="0.5"/></svg>,
   },
-  "Optimizely Analytics": {
+  "Analytics Platform": {
     color: "#6366f1", bg: "#6366f115",
     category: "Product Analytics",
     svg: <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><circle cx="12" cy="12" r="9" stroke="#6366f1" strokeWidth="2"/><circle cx="12" cy="12" r="4" fill="#6366f1" opacity="0.25"/><circle cx="12" cy="12" r="1.5" fill="#6366f1"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="#6366f1" strokeWidth="2" strokeLinecap="round"/></svg>,
@@ -350,7 +350,7 @@ function PipelineDiagram() {
       {/* Row 1: Products */}
       <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "6px", flexWrap: "nowrap" }}>
         <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--foreground-subtle)", marginRight: "4px", whiteSpace: "nowrap" }}>User Events</span>
-        {["Experimentation", "Content Marketing Platform", "Opal AI", "Optimizely Data Platform", "Product Recommendations", "Content Management System", "Search & Navigation", "Configured Commerce"].map((p) => (
+        {["Experimentation", "Content Marketing Platform", "AI Agent", "Customer Data Platform (CDP)", "Product Recommendations", "Content Management System", "Search & Navigation", "Configured Commerce"].map((p) => (
           <div key={p} style={{
             background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)",
             borderRadius: "6px", padding: "4px 10px", fontSize: "0.72rem", fontWeight: 700,
@@ -391,9 +391,9 @@ function PipelineDiagram() {
         </div>
       </div>
 
-      {/* Row 3: OA + PowerBI */}
+      {/* Row 3: Analytics Platform + PowerBI */}
       <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginLeft: "420px", marginBottom: "6px", flexWrap: "nowrap" }}>
-        {node("Optimizely Analytics", "product analytics · PM-facing", "#6366f1", "200px")}
+        {node("Analytics Platform", "product analytics · PM-facing", "#6366f1", "200px")}
         <div style={{ width: "20px" }} />
         {node("PowerBI", "business intelligence", "#F2C811", "160px")}
       </div>
@@ -418,7 +418,7 @@ function PipelineDiagram() {
 
 function AgentExecFlow() {
   const steps: { label: string; sub: string; color: string; annotation: { event: string; desc: string; color: string } | null }[] = [
-    { label: "User Prompt", sub: "Opal interface", color: "#a5b4fc", annotation: null },
+    { label: "User Prompt", sub: "AI agent interface", color: "#a5b4fc", annotation: null },
     { label: "Agent Router", sub: "selects agent type", color: "#818cf8", annotation: { event: "Discovery event", desc: "Which agents are found and opened: discoverability measured at entry", color: "#c4b5fd" } },
     { label: "Tool Chain", sub: "sequential invocations", color: "#6366f1", annotation: { event: "Tool invocation", desc: "Every call: name · execution context · outcome · latency", color: "#818cf8" } },
     { label: "LLM Inference", sub: "per tool call", color: "#4f46e5", annotation: null },
@@ -622,7 +622,7 @@ function EventTransform() {
   );
 }
 
-// ─── Snowflake customization → Mixpanel + OA reporting paths ───────────────────
+// ─── Snowflake customization → Mixpanel + Analytics Platform reporting paths ───────────────────
 
 function SnowflakeReportingPaths() {
   const inWarehouse = [
@@ -665,7 +665,7 @@ function SnowflakeReportingPaths() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
           {pathBox("→ Mixpanel", "#7856FF", "Synced subset · behavioural dashboards", ["Product usage funnels", "Retention cohorts", "Feature adoption"], "var(--border-subtle)")}
-          {pathBox("→ Optimizely Analytics", "#818cf8", "Warehouse-native · ARR-joined dashboards", ["Engagement × ARR by segment", "Cross-product cohorts", "Executive + CS views"], "rgba(99,102,241,0.28)")}
+          {pathBox("→ Analytics Platform", "#818cf8", "Warehouse-native · ARR-joined dashboards", ["Engagement × ARR by segment", "Cross-product cohorts", "Executive + CS views"], "rgba(99,102,241,0.28)")}
         </div>
       </div>
     </div>
@@ -679,7 +679,7 @@ function DashboardUsabilityMap() {
     { dash: "Engagement × ARR", aud: "Executive / Steerco", dec: "Where to invest · board narrative", color: "#f59e0b" },
     { dash: "Feature adoption funnels", aud: "Product Managers", dec: "Roadmap prioritisation", color: "#6366f1" },
     { dash: "Account health scores", aud: "Customer Success", dec: "Churn intervention before risk", color: "#10b981" },
-    { dash: "Opal usage & attach", aud: "Sales / GTM", dec: "AI expansion targeting", color: "#a5b4fc" },
+    { dash: "AI Agent usage & attach", aud: "Sales / GTM", dec: "AI expansion targeting", color: "#a5b4fc" },
   ];
   return (
     <div style={{ overflowX: "auto" }}>
@@ -726,7 +726,7 @@ function PerProductReporting() {
       views: ["Average order value", "Units per order", "Conversion rate", "Site revenue", "Devices & referrers", "Order time-of-day"],
     },
     {
-      name: "Optimizely Data Platform", color: "#a5b4fc",
+      name: "Customer Data Platform (CDP)", color: "#a5b4fc",
       flavor: "Activation & audience engagement",
       views: ["Monthly active users", "Feature usage", "Audience activation", "Channel engagement"],
     },
@@ -808,7 +808,7 @@ function MetricGovernance() {
     ["Definition", "one canonical SQL source"],
     ["Window", "engaged = core action L30D"],
     ["Freshness", "last-validated timestamp"],
-    ["Consumers", "dbt → OA → PowerBI"],
+    ["Consumers", "dbt → Analytics Platform → PowerBI"],
   ];
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "14px" }}>
@@ -981,7 +981,7 @@ function DbtModelDag() {
       name: "Mart",
       prefix: "fct_ / dim_",
       color: "#6366f1",
-      desc: "Dimensional models. The layer consumed by OA and PowerBI.",
+      desc: "Dimensional models. The layer consumed by the analytics platform and PowerBI.",
       models: [
         { name: "fct_account_engagement", note: "Level 1 metrics" },
         { name: "fct_experiment_results", note: "exp outcomes" },
@@ -996,7 +996,7 @@ function DbtModelDag() {
       desc: "Pre-aggregated for dashboards. Thin slice on top of mart.",
       models: [
         { name: "rpt_level1_metrics", note: "monthly engagement" },
-        { name: "rpt_opal_usage", note: "Opal credit billing" },
+        { name: "rpt_ai_agent_usage", note: "AI agent credit billing" },
         { name: "rpt_gtm_signals", note: "expansion flags" },
         { name: "rpt_exec_summary", note: "board / steerco" },
       ],
@@ -1106,8 +1106,8 @@ function MetricCoverageMatrix() {
     { product: "Personalization (P13N)", spec: "+ audience-cohort sub-metrics", color: "#818cf8" },
     { product: "Content Marketing Platform", spec: "+ depth bands: power → at-risk", color: "#10b981" },
     { product: "Content Management System", spec: "Content-item creation", color: "#34d399" },
-    { product: "Optimizely Data Platform", spec: "+ weekly · Core / Acquired splits", color: "#a5b4fc" },
-    { product: "Optimizely Analytics", spec: "Create · view · update", color: "#c4b5fd" },
+    { product: "Customer Data Platform (CDP)", spec: "+ weekly · Core / Acquired splits", color: "#a5b4fc" },
+    { product: "Analytics Platform", spec: "Create · view · update", color: "#c4b5fd" },
   ];
   const grid = "1.6fr repeat(4, 0.8fr) 1.7fr";
   const check = (
@@ -1334,7 +1334,7 @@ function SpecializedAgentsGrid() {
       ],
     },
     {
-      name: "Opal Usage",
+      name: "AI Agent Usage",
       purpose: "Surfaces AI platform adoption: agent executions, tool usage rankings, credit consumption by tier.",
       color: "#a5b4fc",
       tools: [
@@ -1403,7 +1403,7 @@ function WorkflowOrchestrationDiagram() {
     { label: "Experiment Velocity", color: "#f59e0b" },
   ];
   const continuedSteps = [
-    { n: "03", label: "Tools fetch live data", sub: "Each agent calls its MCP tools, executing structured queries against Optimizely Analytics: live Snowflake data, no cache", color: "#818cf8" },
+    { n: "03", label: "Tools fetch live data", sub: "Each agent calls its MCP tools, executing structured queries against the in-house analytics platform: live Snowflake data, no cache", color: "#818cf8" },
     { n: "04", label: "Aggregate & synthesise", sub: "Workflow agent collects sub-agent outputs, identifies key movements, flags anomalies, and drafts the narrative layer", color: "#a5b4fc" },
     { n: "05", label: "Format report", sub: "Structures the output as a Coda document, email body, or Teams card depending on the configured distribution target", color: "#f59e0b" },
   ];
@@ -1523,14 +1523,14 @@ function AgentArchitectureStack() {
   const workflows = [
     { id: "monthly", name: "Monthly Report", agents: ["engagement", "account", "experiment"] },
     { id: "board", name: "Board Prep", agents: ["engagement", "account"] },
-    { id: "cs", name: "CS Intelligence", agents: ["account", "opal"] },
+    { id: "cs", name: "CS Intelligence", agents: ["account", "ai_agent"] },
   ];
 
   const agents = [
     { id: "engagement", name: "Engagement Analyst", color: "#6366f1", tools: ["get_level1_metrics", "get_feature_adoption", "get_cohort_trends", "get_segment_breakdown"] },
     { id: "account",    name: "Account Health",      color: "#10b981", tools: ["get_account_profile", "get_risk_tier", "get_peer_benchmarks", "get_engagement_history"] },
     { id: "experiment", name: "Experiment Velocity", color: "#f59e0b", tools: ["get_experiment_counts", "get_qualification_rate", "get_win_rate", "compare_ai_vs_manual"] },
-    { id: "opal",       name: "Opal Usage",          color: "#a5b4fc", tools: ["get_agent_executions", "get_tool_usage_ranking", "get_credit_consumption", "get_attach_rate"] },
+    { id: "ai_agent",   name: "AI Agent Usage",      color: "#a5b4fc", tools: ["get_agent_executions", "get_tool_usage_ranking", "get_credit_consumption", "get_attach_rate"] },
   ];
 
   const activeWorkflowObj = workflows.find(w => w.id === activeWorkflow);
@@ -1661,7 +1661,7 @@ function AgentArchitectureStack() {
             )}
           </div>
           <p style={{ fontSize: "0.7rem", color: "var(--foreground-muted)", margin: 0, lineHeight: 1.55 }}>
-            Structured functions with typed parameters: execute a specific OA query and return clean JSON. No natural-language interpretation at the data layer.
+            Structured functions with typed parameters: execute a specific analytics-platform query and return clean JSON. No natural-language interpretation at the data layer.
           </p>
         </div>
       </div>
@@ -1672,7 +1672,7 @@ function AgentArchitectureStack() {
       <div style={{ border: "1px solid rgba(41,181,232,0.28)", borderRadius: "14px", overflow: "hidden" }}>
         <div style={{ background: "rgba(41,181,232,0.06)", borderBottom: "1px solid rgba(41,181,232,0.15)", padding: "10px 16px", display: "flex", alignItems: "center", gap: "10px" }}>
           <span style={{ fontSize: "0.55rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", background: "rgba(41,181,232,0.14)", color: "#29B5E8", borderRadius: "4px", padding: "2px 7px" }}>Layer 4</span>
-          <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--foreground)" }}>Optimizely Analytics → Snowflake</span>
+          <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--foreground)" }}>Analytics Platform → Snowflake</span>
           <span style={{ marginLeft: "auto", fontSize: "0.62rem", color: "var(--foreground-muted)", fontStyle: "italic" }}>warehouse-native</span>
         </div>
         <div style={{ padding: "14px 16px" }}>
@@ -1680,7 +1680,7 @@ function AgentArchitectureStack() {
             {[
               { label: "No export", desc: "SQL runs directly in Snowflake", color: "#29B5E8" },
               { label: "No cache", desc: "Every query is live data", color: "#29B5E8" },
-              { label: "Consistent", desc: "Same engine as OA dashboards", color: "#29B5E8" },
+              { label: "Consistent", desc: "Same engine as platform dashboards", color: "#29B5E8" },
             ].map(({ label, desc, color }) => (
               <div key={label} style={{ background: `${color}08`, border: `1px solid ${color}22`, borderRadius: "8px", padding: "7px 12px" }}>
                 <div style={{ fontSize: "0.72rem", fontWeight: 700, color }}>{label}</div>
@@ -1689,7 +1689,7 @@ function AgentArchitectureStack() {
             ))}
           </div>
           <p style={{ fontSize: "0.7rem", color: "var(--foreground-muted)", margin: 0, lineHeight: 1.55 }}>
-            OA executes SQL directly against Snowflake: no sync, no export, no stale cache. Agents always see the same numbers as a PM looking at OA in real-time.
+            The analytics platform executes SQL directly against Snowflake: no sync, no export, no stale cache. Agents always see the same numbers as a PM looking at the platform in real-time.
           </p>
         </div>
       </div>
@@ -1786,7 +1786,7 @@ function InstrumentationFlow() {
     { n: 5, label: "Instrument BE", desc: "Backend instruments via HTTP API (async queue)", color: "#a5b4fc", gate: false },
     { n: 6, label: "Protocols gate", desc: "Segment Protocols conditionally blocks or allows events based on Tracking Plan rules: unplanned events are rejected at ingestion, no manual intervention needed at scale", color: "#f59e0b", gate: true },
     { n: 7, label: "Warehouse", desc: "Approved events propagate to Snowflake in near-real-time", color: "#29B5E8", gate: false },
-    { n: 8, label: "dbt + surfaces", desc: "dbt models transform events; surfaced in OA & PowerBI", color: "#FF694B", gate: false },
+    { n: 8, label: "dbt + surfaces", desc: "dbt models transform events; surfaced in the analytics platform & PowerBI", color: "#FF694B", gate: false },
   ];
   const row1 = steps.slice(0, 4);
   const row2 = [...steps.slice(4, 8)].reverse();
@@ -1936,7 +1936,7 @@ export default function Home() {
             }}>
               <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#34d399", boxShadow: "0 0 6px #34d399" }} />
               <span style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "#a5b4fc" }}>
-                Case Study · Optimizely
+                Case Study · Product Analytics
               </span>
             </div>
 
@@ -1951,11 +1951,11 @@ export default function Home() {
               fontSize: "clamp(1rem, 2vw, 1.18rem)", color: "var(--foreground-muted)",
               lineHeight: 1.75, maxWidth: "660px", marginBottom: "52px",
             }}>
-              I built Optimizely&apos;s product intelligence stack from the ground up: designed the cross-company
+              I built the product intelligence stack for a B2B experimentation and digital-experience platform from the ground up: designed the cross-company
               instrumentation contract, set up the identity layer that made ARR-linked engagement possible,
               defined product metrics alongside PMs and feature owners, drove the migration to a
               warehouse-native reporting platform, and extended the whole thing to measure AI at production
-              scale when Opal shipped.
+              scale when the AI agent shipped.
             </p>
 
             {/* Stat pills */}
@@ -2001,7 +2001,7 @@ export default function Home() {
                 {[
                   "8 engineering teams aligned to a single instrumentation standard: analytics owns the approval gate; no event ships without review",
                   "Product engagement became joinable to ARR for the first time: enabling data-backed GTM plays across Financial Services, Healthcare, and AI verticals",
-                  "Designed the measurement infrastructure for Optimizely&apos;s AI platform (Opal) from first principles: a new analytics discipline with no existing playbook, now powering commercial expansion decisions",
+                  "Designed the measurement infrastructure for the platform&apos;s AI product (the AI agent) from first principles: a new analytics discipline with no existing playbook, now powering commercial expansion decisions",
                 ].map((outcome) => (
                   <div key={outcome} style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
                     <div style={{
@@ -2139,7 +2139,7 @@ export default function Home() {
                 {
                   n: "05",
                   title: "Internal traffic exclusion",
-                  body: "Every event carries a flag identifying Optimizely employees. This is not optional: without it, internal usage pollutes every engagement metric. Product teams testing their own features, CS demoing accounts, and engineers debugging all need to be cleanly excluded before any metric is calculated.",
+                  body: "Every event carries a flag identifying the company's employees. This is not optional: without it, internal usage pollutes every engagement metric. Product teams testing their own features, CS demoing accounts, and engineers debugging all need to be cleanly excluded before any metric is calculated.",
                   color: "#a5b4fc",
                 },
                 {
@@ -2189,8 +2189,8 @@ export default function Home() {
                 </div>
                 {[
                   { ex: "EXP - Experiment_Started", v: true },
-                  { ex: "CMP - Task_Created", v: true },
-                  { ex: "OPAL - Agent_Executed", v: true },
+                  { ex: "CONTENT - Task_Created", v: true },
+                  { ex: "AI_AGENT - Agent_Executed", v: true },
                   { ex: "Experiment 1234 was Started", v: false },
                 ].map(({ ex, v }) => (
                   <div key={ex} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px", fontFamily: "ui-monospace, monospace", fontSize: "0.82rem" }}>
@@ -2215,7 +2215,7 @@ export default function Home() {
                     Teams onboarded
                   </div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                    {["Experimentation", "Content Marketing Platform", "Opal", "Optimizely Data Platform", "Product Recommendations", "Content Management System", "Search & Navigation", "Configured Commerce"].map((t) => (
+                    {["Experimentation", "Content Marketing Platform", "AI Agent", "Customer Data Platform (CDP)", "Product Recommendations", "Content Management System", "Search & Navigation", "Configured Commerce"].map((t) => (
                       <span key={t} style={{
                         background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)",
                         borderRadius: "5px", padding: "3px 9px", fontSize: "0.72rem", color: "#a5b4fc", fontWeight: 500,
@@ -2237,7 +2237,7 @@ export default function Home() {
             <Heading className="gradient-heading">End-to-end data pipeline: from product event to Salesforce</Heading>
             <Body>
               Eight products emit behavioural events through a single Segment contract. Those events flow
-              into Snowflake, get modelled by dbt, surface in Optimizely Analytics and PowerBI, and sync
+              into Snowflake, get modelled by dbt, surface in the in-house analytics platform and PowerBI, and sync
               back into Salesforce via Reverse ETL. One pipeline. One identity key. Every layer.
             </Body>
             <div style={{
@@ -2252,7 +2252,7 @@ export default function Home() {
                 { layer: "Collection", tools: "Segment · Fivetran · Airbyte", note: "Real-time event stream + SaaS connector ingestion", color: "#52BD94" },
                 { layer: "Warehouse", tools: "Snowflake", note: "Immutable raw layer → modelled layer → reporting layer", color: "#29B5E8" },
                 { layer: "Transform", tools: "dbt", note: "Dimensional models and reporting aggregates", color: "#FF694B" },
-                { layer: "Analytics", tools: "Optimizely Analytics + PowerBI", note: "Warehouse-native · no sync · ARR-joinable queries", color: "#6366f1" },
+                { layer: "Analytics", tools: "Analytics Platform + PowerBI", note: "Warehouse-native · no sync · ARR-joinable queries", color: "#6366f1" },
                 { layer: "Activation", tools: "Reverse ETL → Salesforce", note: "Account health and engagement signals pushed to CRM", color: "#F59E0B" },
               ].map(({ layer, tools, note, color }) => (
                 <div key={layer} style={{
@@ -2271,7 +2271,7 @@ export default function Home() {
                 dbt model architecture: four-layer DAG
               </div>
               <p style={{ fontSize: "0.84rem", color: "var(--foreground-muted)", lineHeight: 1.7, maxWidth: "680px", marginBottom: "20px" }}>
-                The transform layer follows a strict four-layer DAG. Staging models clean raw sources without any joins. Intermediate models apply business logic. Mart models produce the dimensional tables consumed by Optimizely Analytics and PowerBI. Reporting models are pre-aggregated for dashboards and board-level exports.
+                The transform layer follows a strict four-layer DAG. Staging models clean raw sources without any joins. Intermediate models apply business logic. Mart models produce the dimensional tables consumed by the in-house analytics platform and PowerBI. Reporting models are pre-aggregated for dashboards and board-level exports.
               </p>
               <div style={{ background: "var(--surface)", border: "1px solid var(--border-subtle)", borderRadius: "14px", padding: "22px" }}>
                 <DbtModelDag />
@@ -2325,7 +2325,7 @@ export default function Home() {
             <Body>
               Not all data arrived as events. Records already in Snowflake: billing, usage,
               CRM-mirrored ARR: were custom-transformed and joined to behaviour, then surfaced
-              first through Mixpanel and later natively through Optimizely Analytics.
+              first through Mixpanel and later natively through the in-house analytics platform.
             </Body>
 
             <div style={{ marginTop: "32px", background: "var(--surface)", border: "1px solid var(--border-subtle)", borderRadius: "16px", padding: "24px" }}>
@@ -2367,7 +2367,7 @@ export default function Home() {
                   { value: "Anonymous → known resolution", label: "Segment Unify identity graph", note: "Stitches pre-login sessions to authenticated users: essential for accurate activation funnel analysis", color: "#c4b5fd" },
                   { value: "Account dimension table", label: "Warehouse identity spine", note: "ARR, contract dates, product tier, lifecycle: all joinable to behaviour via the shared account key", color: "#a5b4fc" },
                   { value: "Salesforce CRM", label: "Revenue source of truth", note: "Renewal, expansion, and churn: joinable to product engagement at account level for the first time", color: "#818cf8" },
-                  { value: "Optimizely Analytics + PowerBI", label: "Business intelligence layer", note: "Engagement metrics answerable with ARR context: the foundation of the PLG data model", color: "#34d399" },
+                  { value: "Analytics Platform + PowerBI", label: "Business intelligence layer", note: "Engagement metrics answerable with ARR context: the foundation of the PLG data model", color: "#34d399" },
                 ].map(({ value, label, note, color }, i, arr) => (
                   <div key={label} style={{ display: "flex", gap: "16px" }}>
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
@@ -2416,9 +2416,9 @@ export default function Home() {
                 <p>First full analytics stack. Segment collected events and routed them to Snowflake (warehouse) and Mixpanel (PM dashboards). dbt staging and dimensional models structured the raw event stream. Product Managers got self-serve analytics for the first time.</p>
                 <div><Tag color="#6366f1">Segment</Tag><Tag color="#6366f1">Snowflake</Tag><Tag color="#6366f1">Mixpanel</Tag><Tag color="#6366f1">dbt</Tag></div>
               </Phase>
-              <Phase n="2" title="Warehouse-Native Migration to Optimizely Analytics">
-                <p>Migrated the reporting layer to <strong style={{ color: "var(--foreground)" }}>Optimizely Analytics</strong>: warehouse-native, querying Snowflake directly. No sync infrastructure, no mirror tables, no per-user pricing. Behavioural data became natively joinable to ARR and contract records in the same query.</p>
-                <p style={{ marginTop: "10px" }}>All dashboards and metrics migrated under parallel-run conditions with parity validation before cutover. Classic &quot;Opti on Opti&quot;: dogfooding the company&apos;s own analytics product.</p>
+              <Phase n="2" title="Warehouse-Native Migration to the In-House Analytics Platform">
+                <p>Migrated the reporting layer to <strong style={{ color: "var(--foreground)" }}>the in-house analytics platform</strong>: warehouse-native, querying Snowflake directly. No sync infrastructure, no mirror tables, no per-user pricing. Behavioural data became natively joinable to ARR and contract records in the same query.</p>
+                <p style={{ marginTop: "10px" }}>All dashboards and metrics migrated under parallel-run conditions with parity validation before cutover. A classic dogfooding exercise: running the company on its own analytics product.</p>
                 <div style={{
                   marginTop: "14px", padding: "12px 14px",
                   background: "rgba(99,102,241,0.06)", border: "1px solid rgba(99,102,241,0.2)",
@@ -2432,12 +2432,12 @@ export default function Home() {
                     <a href="https://systems-architecture.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Systems Architecture case study</a>.
                   </p>
                 </div>
-                <div><Tag color="#6366f1">Optimizely Analytics</Tag><Tag color="#6366f1">Warehouse-Native</Tag><Tag color="#6366f1">ARR Joins</Tag></div>
+                <div><Tag color="#6366f1">Analytics Platform</Tag><Tag color="#6366f1">Warehouse-Native</Tag><Tag color="#6366f1">ARR Joins</Tag></div>
               </Phase>
               <Phase n="3" title="Agentic AI Extension">
-                <p>When Opal shipped, the same Segment rails were extended with new event types covering AI tool invocations, agent executions, and discovery interactions. No new infrastructure: the contract, identity model, and pipeline all carried AI data with the same rigour as any product feature.</p>
+                <p>When the AI agent shipped, the same Segment rails were extended with new event types covering AI tool invocations, agent executions, and discovery interactions. No new infrastructure: the contract, identity model, and pipeline all carried AI data with the same rigour as any product feature.</p>
                 <p style={{ marginTop: "10px" }}>This required designing a measurement framework for an entirely new product category: defining what &quot;engagement&quot; means for an AI agent, not a button click.</p>
-                <div><Tag color="#6366f1">Opal AI</Tag><Tag color="#6366f1">Agent Measurement</Tag><Tag color="#6366f1">AI-Scale Tracking</Tag></div>
+                <div><Tag color="#6366f1">AI Agent</Tag><Tag color="#6366f1">Agent Measurement</Tag><Tag color="#6366f1">AI-Scale Tracking</Tag></div>
               </Phase>
             </div>
           </div>
@@ -2569,7 +2569,7 @@ export default function Home() {
               <p style={{ marginTop: "12px", fontSize: "0.76rem", color: "var(--foreground-subtle)", lineHeight: 1.6, maxWidth: "780px" }}>
                 Experimentation is measured as three distinct lines: Web Experimentation, Feature
                 Experimentation, and Personalization: each with its own engaged-ARR penetration against
-                its own revenue base. Opal (AI) sits outside this family on a consumption model (credit
+                its own revenue base. The AI agent sits outside this family on a consumption model (credit
                 registration, tier benchmarks, and cross-product attach %), shown in the segmentation
                 layer below.
               </p>
@@ -2586,7 +2586,7 @@ export default function Home() {
                   { label: "Data exploration", sub: "Which events proxy that behaviour?" },
                   { label: "Threshold calibration", sub: "What separates engaged from noise?" },
                   { label: "Governance sign-off", sub: "Single definition, documented" },
-                  { label: "dbt → OA → PowerBI", sub: "One metric, all consumers" },
+                  { label: "dbt → Analytics Platform → PowerBI", sub: "One metric, all consumers" },
                 ].map(({ label, sub }, i, arr) => (
                   <div key={label} style={{ display: "flex", alignItems: "center" }}>
                     <div style={{
@@ -2625,7 +2625,7 @@ export default function Home() {
                     note: "Feature-level metrics drive Content Marketing Platform roadmap prioritisation and surface underutilised capabilities",
                   },
                   {
-                    product: "Opal (AI Platform)",
+                    product: "AI Agent (AI Platform)",
                     features: ["Agent builder adoption", "OOTB agent usage by category", "Custom agent creation", "Multi-step workflow agents"],
                     color: "#f59e0b",
                     note: "AI feature metrics directly inform which agent types to invest in and where to simplify onboarding",
@@ -2671,7 +2671,7 @@ export default function Home() {
                     note: "Three-tier segmentation turns a binary engaged/not metric into a prioritised CS action list",
                   },
                   {
-                    product: "Opal (AI Platform)",
+                    product: "AI Agent (AI Platform)",
                     color: "#f59e0b",
                     tiers: [
                       { label: "Advanced Tier accounts", desc: "Highest credit allocation: credit consumption benchmark tracked separately per tier", color: "#f59e0b" },
@@ -2681,11 +2681,11 @@ export default function Home() {
                     note: "Tier-split benchmarks let CS set realistic activation targets per customer segment, not one-size averages",
                   },
                   {
-                    product: "Experimentation + Opal (Cross-Product)",
+                    product: "Experimentation + AI Agent (Cross-Product)",
                     color: "#6366f1",
                     tiers: [
-                      { label: "Eligible accounts", desc: "Paid on both Experimentation and Opal: the addressable cross-product base", color: "#a5b4fc" },
-                      { label: "Active accounts", desc: "Opal-provisioned Experimentation customers with registered credit usage in Opal", color: "#818cf8" },
+                      { label: "Eligible accounts", desc: "Paid on both Experimentation and the AI agent: the addressable cross-product base", color: "#a5b4fc" },
+                      { label: "Active accounts", desc: "AI-agent-provisioned Experimentation customers with registered credit usage in the AI agent", color: "#818cf8" },
                       { label: "Cross-product utilisation rate", desc: "Active / eligible: the attach metric, updated monthly, used in the AI expansion commercial play", color: "#6366f1" },
                     ],
                     note: "The first native cross-product utilisation metric: only possible because both products share the same canonical account key",
@@ -2799,7 +2799,7 @@ export default function Home() {
               Dashboards are not a flat collection: they are a tiered intelligence system. Each tier
               answers fundamentally different questions for a different audience, at a different cadence,
               with different metric granularity. Mixpanel served as the PM-facing layer in Phase 1;
-              Optimizely Analytics and PowerBI now cover all three tiers natively from the warehouse.
+              The in-house analytics platform and PowerBI now cover all three tiers natively from the warehouse.
             </Body>
 
             <div style={{ marginTop: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "14px" }}>
@@ -2812,7 +2812,7 @@ export default function Home() {
                 dashboards={[
                   "Product engagement by ARR segment",
                   "Cross-product adoption rates",
-                  "Opal AI revenue impact overview",
+                  "AI Agent revenue impact overview",
                   "Quarterly engagement trends vs targets",
                 ]}
                 metrics={["ARR-linked engagement", "Quarterly trends", "Segment benchmarks", "Executive KPIs"]}
@@ -2825,7 +2825,7 @@ export default function Home() {
                 borderClass="card-tier-indigo"
                 dashboards={[
                   "Product usage & adoption by feature",
-                  "Opal AI usage across Experimentation and Content Marketing Platform",
+                  "AI Agent usage across Experimentation and Content Marketing Platform",
                   "Dev Agent experiment quality analysis",
                   "Agent directory adoption and discovery",
                   "Feature adoption funnels by release cohort",
@@ -2841,7 +2841,7 @@ export default function Home() {
                 dashboards={[
                   "Account health scores",
                   "Experimentation contract overage signals",
-                  "Opal adoption and attach analysis",
+                  "AI Agent adoption and attach analysis",
                   "Usage forecast for capacity planning",
                   "DXP overage and expansion flags",
                 ]}
@@ -2849,7 +2849,7 @@ export default function Home() {
               />
             </div>
 
-            {/* Mixpanel vs OA */}
+            {/* Mixpanel vs Analytics Platform */}
             <div style={{ marginTop: "28px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
               <div className="card-hover" style={{
                 background: "var(--surface)", border: "1px solid var(--border-subtle)",
@@ -2880,7 +2880,7 @@ export default function Home() {
                 borderRadius: "14px", padding: "22px",
               }}>
                 <div style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#6366f1", marginBottom: "12px" }}>
-                  Phase 2+ · Optimizely Analytics + PowerBI
+                  Phase 2+ · Analytics Platform + PowerBI
                 </div>
                 {[
                   "Cross-product engagement with ARR context",
@@ -2953,7 +2953,7 @@ export default function Home() {
 
             <div style={{ marginTop: "32px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "12px" }}>
               {[
-                { step: "01", label: "Data pull from Snowflake", sub: "Level 1 engagement, feature adoption, Opal AI usage, and experiment velocity: queried directly from the warehouse" },
+                { step: "01", label: "Data pull from Snowflake", sub: "Level 1 engagement, feature adoption, AI agent usage, and experiment velocity: queried directly from the warehouse" },
                 { step: "02", label: "Analysis and narrative layer", sub: "Trend identification, cohort comparisons, MoM movements, and key insights connecting data to product and commercial context" },
                 { step: "03", label: "Coda document compiled", sub: "Structured report combining visualisations, narrative, notable account callouts, and recommended actions" },
                 { step: "04", label: "ELT distribution", sub: "Distributed to the Executive Leadership Team monthly: used for product strategy discussions, roadmap inputs, and commercial briefings" },
@@ -2996,7 +2996,7 @@ export default function Home() {
 
             <div style={{ margin: "32px 0", display: "flex", alignItems: "center", gap: "0", flexWrap: "wrap" }}>
               {[
-                { label: "Signal detected in OA", active: false },
+                { label: "Signal detected in the platform", active: false },
                 { label: "Sprint hypothesis", active: false },
                 { label: "Data pull & analysis", active: false },
                 { label: "Structured finding brief", active: false },
@@ -3036,7 +3036,7 @@ export default function Home() {
                 {
                   type: "AI Attach",
                   title: "Behavioural data as the commercial proof point",
-                  desc: "AI-assisted experiments qualified at measurably higher rates. That signal became the evidence base for the Opal attach motion: replacing product marketing claims with accounts-that-look-like-this data.",
+                  desc: "AI-assisted experiments qualified at measurably higher rates. That signal became the evidence base for the AI agent attach motion: replacing product marketing claims with accounts-that-look-like-this data.",
                   color: "#f59e0b",
                 },
               ].map(({ type, title, desc, color }) => (
@@ -3065,7 +3065,7 @@ export default function Home() {
             <Label>Agentic AI Measurement</Label>
             <Heading className="gradient-heading">Measurement infrastructure for enterprise AI at production scale</Heading>
             <Body>
-              When Opal shipped, I had no reference point for measuring AI agent behaviour at product scale. Nobody did. I had to figure out what &ldquo;engagement&rdquo; even means for an agent: not a click, not a pageview, but a task completion spanning multiple tool calls. I extended the existing Segment contract with three new event types and built the measurement layer from scratch, no new infrastructure needed.
+              When the AI agent shipped, I had no reference point for measuring AI agent behaviour at product scale. Nobody did. I had to figure out what &ldquo;engagement&rdquo; even means for an agent: not a click, not a pageview, but a task completion spanning multiple tool calls. I extended the existing Segment contract with three new event types and built the measurement layer from scratch, no new infrastructure needed.
             </Body>
 
             <div className="card-hover card-tier card-tier-indigo" style={{
@@ -3087,7 +3087,7 @@ export default function Home() {
             <div style={{ marginTop: "24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
               {/* Root node */}
               <div style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.3)", borderRadius: "12px", padding: "11px 28px", textAlign: "center" }}>
-                <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#a5b4fc" }}>Opal Agent Execution</div>
+                <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#a5b4fc" }}>AI Agent Execution</div>
                 <div style={{ fontSize: "0.68rem", color: "var(--foreground-muted)", marginTop: "3px" }}>emits three event types per execution</div>
               </div>
               {/* SVG branch connector */}
@@ -3103,7 +3103,7 @@ export default function Home() {
                 {[
                   { event: "Tool invocation tracking", desc: "Every individual tool call: function name, execution context, and outcome. Enables tool-level usage analysis, failure pattern detection, and tool popularity ranking across the entire agent ecosystem.", color: "#a5b4fc" },
                   { event: "Agent execution tracking", desc: "Top-level agent engagement. Captures agent type, task context, latency, and success signal: the primary engagement event for AI product analytics. Distinguishes specialized agents from workflow orchestrators.", color: "#818cf8" },
-                  { event: "Agent discovery tracking", desc: "How users navigate and discover Optimizely-built agents. Measures discoverability alongside adoption: a gap most AI analytics frameworks miss entirely. An agent nobody finds cannot be adopted.", color: "#6366f1" },
+                  { event: "Agent discovery tracking", desc: "How users navigate and discover the platform's agents. Measures discoverability alongside adoption: a gap most AI analytics frameworks miss entirely. An agent nobody finds cannot be adopted.", color: "#6366f1" },
                 ].map(({ event, desc, color }) => (
                   <div key={event} className="card-hover card-tier card-tier-indigo" style={{ background: "var(--surface)", border: `1px solid ${color}28`, borderRadius: "14px", padding: "20px" }}>
                     <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: color, marginBottom: "10px", boxShadow: `0 0 5px ${color}60` }} />
@@ -3116,7 +3116,7 @@ export default function Home() {
 
             <div style={{ marginTop: "24px" }}>
               <div style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--foreground-subtle)", marginBottom: "16px" }}>
-                How an Opal agent executes: and how it&apos;s measured
+                How an AI agent executes: and how it&apos;s measured
               </div>
               <div className="card-hover" style={{
                 background: "var(--surface)", border: "1px solid var(--border-subtle)",
@@ -3133,7 +3133,7 @@ export default function Home() {
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px" }}>
                   {[
-                    { title: "AI roadmap evidence", desc: "First-time visibility into which agent types and tools customers actually use: directly powering Opal product roadmap prioritisation.", color: "#a5b4fc" },
+                    { title: "AI roadmap evidence", desc: "First-time visibility into which agent types and tools customers actually use: directly powering AI agent product roadmap prioritisation.", color: "#a5b4fc" },
                     { title: "Evidence-based upsell", desc: "AI-assisted experiments qualify at higher rates: a data-backed proof point replacing product marketing claims in the commercial attach motion.", color: "#818cf8" },
                     { title: "Ecosystem visibility", desc: "Customer-built agents mapped by type and usage: inputs to infrastructure scaling and enterprise sales conversations.", color: "#c4b5fd" },
                   ].map(({ title, desc, color }) => (
@@ -3153,9 +3153,9 @@ export default function Home() {
         <section style={secAlt}>
           <div style={wrap}>
             <Label>Agentic AI for Analytics</Label>
-            <Heading className="gradient-heading">Building analytics agents on top of Opal: specialized agents, MCP tools, and workflow orchestration</Heading>
+            <Heading className="gradient-heading">Building analytics agents on top of the AI agent: specialized agents, MCP tools, and workflow orchestration</Heading>
             <Body>
-              I built a two-layer agent system inside Opal. Specialized agents each own one analytics domain and expose their capabilities as MCP tools: typed functions that execute live queries against Optimizely Analytics. Workflow agents sit above them, orchestrating the specialists in sequence or parallel, synthesising their outputs into a narrative, and pushing the result to Coda, Outlook, or Teams. The monthly product report runs on this stack automatically.
+              I built a two-layer agent system inside the AI agent. Specialized agents each own one analytics domain and expose their capabilities as MCP tools: typed functions that execute live queries against the in-house analytics platform. Workflow agents sit above them, orchestrating the specialists in sequence or parallel, synthesising their outputs into a narrative, and pushing the result to Coda, Outlook, or Teams. The monthly product report runs on this stack automatically.
             </Body>
 
             {/* Architecture stack */}
@@ -3205,7 +3205,7 @@ export default function Home() {
             {/* On-demand use cases divider */}
             <div style={{ marginTop: "28px", borderTop: "1px solid var(--border-subtle)", paddingTop: "24px" }}>
               <div style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--foreground-subtle)", marginBottom: "14px" }}>
-                On-demand use: prompt → agent → OA → insight
+                On-demand use: prompt → agent → analytics platform → insight
               </div>
 
               {/* Persona prompts row */}
@@ -3229,19 +3229,19 @@ export default function Home() {
               {/* Arrow down */}
               <div style={{ textAlign: "center", color: "var(--accent)", fontSize: "1.2rem", marginBottom: "12px", opacity: 0.7 }}>↓</div>
 
-              {/* Opal agent hub */}
+              {/* AI agent hub */}
               <div style={{ background: "rgba(99,102,241,0.06)", border: "1px solid rgba(99,102,241,0.3)", borderRadius: "16px", padding: "20px 24px", marginBottom: "12px", boxShadow: "0 0 32px rgba(99,102,241,0.06)" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px", marginBottom: "16px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <span style={{ fontSize: "1rem", fontWeight: 800, color: "var(--accent)" }}>Opal Agent</span>
+                    <span style={{ fontSize: "1rem", fontWeight: 800, color: "var(--accent)" }}>AI Agent</span>
                     <span style={{ fontSize: "0.58rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#34d399", background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)", borderRadius: "20px", padding: "2px 8px" }}>reasoning + tool calls</span>
                   </div>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
                   {[
                     { step: "Understand intent", sub: "Parses the question into a data need: metric type, product scope, time window, account filter", color: "#6366f1" },
-                    { step: "Plan tool calls", sub: "Selects which OA queries to run: level 1 metrics, feature adoption, cohort filters, trend windows", color: "#818cf8" },
-                    { step: "Fetch from OA", sub: "Executes structured data requests against Optimizely Analytics: live warehouse data, no stale cache", color: "#a5b4fc" },
+                    { step: "Plan tool calls", sub: "Selects which analytics-platform queries to run: level 1 metrics, feature adoption, cohort filters, trend windows", color: "#818cf8" },
+                    { step: "Fetch from the platform", sub: "Executes structured data requests against the in-house analytics platform: live warehouse data, no stale cache", color: "#a5b4fc" },
                     { step: "Synthesise & format", sub: "Compiles numbers into narrative: trend callouts, risk flags, comparisons, and a structured summary", color: "#c4b5fd" },
                   ].map(({ step, sub, color }, i, arr) => (
                     <div key={step}>
@@ -3317,7 +3317,7 @@ export default function Home() {
                 Why this is only possible on a warehouse-native stack
               </div>
               <p style={{ fontSize: "0.87rem", color: "var(--foreground-muted)", lineHeight: 1.75 }}>
-                The agents work because the data is in one place: Opal agents call Optimizely Analytics tools, which query Snowflake directly. No API stitching, no stale exports, no data moving between systems. When the agent asks for an account&apos;s engagement profile against their ARR, that join happens in the same warehouse query. This is the direct payoff of the warehouse-native architecture decision made in Phase 2.
+                The agents work because the data is in one place: AI agents call the in-house analytics platform's tools, which query Snowflake directly. No API stitching, no stale exports, no data moving between systems. When the agent asks for an account&apos;s engagement profile against their ARR, that join happens in the same warehouse query. This is the direct payoff of the warehouse-native architecture decision made in Phase 2.
               </p>
             </div>
           </div>
@@ -3359,9 +3359,9 @@ export default function Home() {
                   category: "AI feature adoption",
                   color: "#f59e0b",
                   outcomes: [
-                    "Opal adoption measured from day one: tool usage, agent types, workflow patterns, and feature engagement",
+                    "AI Agent adoption measured from day one: tool usage, agent types, workflow patterns, and feature engagement",
                     "AI-assisted experiments showed measurably higher qualification rates: a data-backed upsell narrative for the commercial team",
-                    "Agent utilisation patterns informed which Opal capabilities to invest in vs. simplify",
+                    "Agent utilisation patterns informed which AI agent capabilities to invest in vs. simplify",
                   ],
                 },
                 {
@@ -3429,7 +3429,7 @@ export default function Home() {
             <Label>Stack</Label>
             <Heading>Technology</Heading>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", gap: "10px", marginTop: "28px" }}>
-              {["Segment", "Snowflake", "dbt", "Optimizely Analytics", "PowerBI", "Segment Unify", "Fivetran", "Airbyte", "Reverse ETL", "Salesforce", "Python", "Coda", "Mixpanel"].map((name) => (
+              {["Segment", "Snowflake", "dbt", "Analytics Platform", "PowerBI", "Segment Unify", "Fivetran", "Airbyte", "Reverse ETL", "Salesforce", "Python", "Coda", "Mixpanel"].map((name) => (
                 <ToolCard key={name} name={name} />
               ))}
             </div>

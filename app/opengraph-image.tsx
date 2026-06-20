@@ -63,7 +63,7 @@ export default function Image() {
                 background: "#34d399",
               }}
             />
-            Case Study · Optimizely
+            Case Study · Product Analytics
           </div>
         </div>
 
@@ -91,7 +91,7 @@ export default function Image() {
             }}
           >
             From zero instrumentation to a warehouse-native, ARR-linked analytics
-            platform across the Optimizely product suite.
+            platform across the product suite.
           </div>
         </div>
 
@@ -114,7 +114,7 @@ export default function Image() {
             </div>
           </div>
           <div style={{ display: "flex", gap: "12px" }}>
-            {["Segment", "Snowflake", "dbt", "Optimizely Analytics"].map((t) => (
+            {["Segment", "Snowflake", "dbt", "Analytics Platform"].map((t) => (
               <div
                 key={t}
                 style={{
