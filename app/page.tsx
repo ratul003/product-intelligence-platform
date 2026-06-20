@@ -1840,26 +1840,40 @@ const NAV_SECTIONS = [
 ];
 
 function SectionNav() {
-  const [active, setActive] = React.useState<string>("problem");
+  const LABELS: Record<string, string> = Object.fromEntries(NAV_SECTIONS.map((s) => [s.id, s.label]));
+  const prettify = (id: string) => id.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const [items, setItems] = React.useState<{ id: string; label: string }[]>([]);
+  const [active, setActive] = React.useState<string>("");
   React.useEffect(() => {
+    const found: { id: string; label: string }[] = [];
+    document.querySelectorAll<HTMLElement>("section[id]").forEach((sec) => {
+      if (sec.dataset.rail === "skip") return;
+      const h = sec.querySelector("h1, h2, h3");
+      const heading = (h?.textContent || "").replace(/\s+/g, " ").trim();
+      const label = sec.dataset.rail || LABELS[sec.id] || heading || prettify(sec.id);
+      if (label) found.push({ id: sec.id, label });
+    });
+    setItems(found);
+    if (found[0]) setActive(found[0].id);
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => { if (e.isIntersecting) setActive((e.target as HTMLElement).id); });
       },
       { rootMargin: "-45% 0px -50% 0px" }
     );
-    NAV_SECTIONS.forEach((s) => { const el = document.getElementById(s.id); if (el) obs.observe(el); });
+    found.forEach((s) => { const el = document.getElementById(s.id); if (el) obs.observe(el); });
     return () => obs.disconnect();
   }, []);
+  if (items.length === 0) return null;
   return (
-    <nav aria-label="Section navigation" className="section-rail" style={{ position: "fixed", right: "26px", top: "50%", transform: "translateY(-50%)", zIndex: 40, flexDirection: "column", gap: "5px" }}>
-      {NAV_SECTIONS.map((s) => {
+    <nav aria-label="Section navigation" className="section-rail" style={{ position: "fixed", right: "26px", top: "50%", transform: "translateY(-50%)", zIndex: 40, flexDirection: "column", gap: "5px", maxHeight: "86vh", overflowY: "auto" }}>
+      {items.map((s) => {
         const on = active === s.id;
         return (
           <a key={s.id} href={`#${s.id}`} aria-current={on ? "true" : undefined}
             style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "10px", textDecoration: "none", padding: "3px 0" }}>
             <span style={{ fontSize: "0.7rem", fontWeight: on ? 700 : 500, color: on ? "var(--accent)" : "var(--foreground-subtle)", whiteSpace: "nowrap", transition: "color .2s" }}>{s.label}</span>
-            <span style={{ width: on ? "24px" : "12px", height: "3px", borderRadius: "2px", background: on ? "var(--accent)" : "var(--border)", boxShadow: on ? "0 0 8px var(--accent-glow)" : "none", transition: "all .2s" }} />
+            <span style={{ width: on ? "24px" : "12px", height: "3px", borderRadius: "2px", background: on ? "var(--accent)" : "var(--border)", boxShadow: on ? "0 0 8px var(--accent-glow)" : "none", transition: "all .2s", flexShrink: 0 }} />
           </a>
         );
       })}
@@ -3425,69 +3439,27 @@ export default function Home() {
       </main>
 
       {/* ── Footer ───────────────────────────────────────────────────────── */}
-      <footer style={{
-        borderTop: "1px solid var(--border-subtle)", padding: "32px 0",
-        background: "var(--surface)",
-      }}>
-        <div style={{ ...wrap, display: "flex", flexDirection: "column", gap: "20px" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
-            <span style={{ fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--foreground-subtle)", marginRight: "6px" }}>
-              Portfolio
-            </span>
+      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '40px 32px 56px' }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 20 }}>
+          <div>
+            <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#e2e8f0', marginBottom: 5 }}>Wahid Tawsif Ratul</div>
+            <div style={{ fontSize: '0.8rem', color: '#64748b' }}>© 2026 · Data Scientist · Product Manager</div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             {[
-              { label: "Data Engineering Foundation", href: "https://data-engineering-foundation.vercel.app", color: "#10b981" },
-              { label: "Experimentation Science", href: "https://experimentation-science.vercel.app", color: "#f59e0b" },
-              { label: "Systems Architecture", href: "https://systems-architecture.vercel.app", color: "#f43f5e" },
-            ].map(({ label, href, color }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{
-                fontSize: "0.79rem", fontWeight: 500, color: "var(--foreground-muted)",
-                textDecoration: "none", border: "1px solid var(--border-subtle)",
-                borderRadius: "7px", padding: "5px 12px",
-                display: "inline-flex", alignItems: "center", gap: "6px",
-                transition: "border-color 0.2s, color 0.2s",
-              }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = color; (e.currentTarget as HTMLAnchorElement).style.color = color; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--border-subtle)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--foreground-muted)"; }}
-              >
-                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: color, flexShrink: 0 }} />
-                {label}
+              { label: 'LinkedIn', href: 'https://linkedin.com/in/wahidratul112296', path: 'M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.64h.05c.53-1 1.83-2.05 3.77-2.05C20.5 8.59 22 11 22 14.4V21h-4v-5.86c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H9z' },
+              { label: 'GitHub', href: 'https://github.com/ratul003', path: 'M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z' },
+              { label: 'Medium', href: 'https://medium.com/@wahidtratul', path: 'M2.5 5.5l1.7 2v9.7l-2 2.3h5.4l-2-2.3V8.4l4.9 11.1h.1l4.3-10.5v8.2l-1.3 1.3v.2h6.4v-.2l-1.3-1.3V6.9l1.3-1.3v-.1h-4.5L13 13.9 9.3 5.5z' },
+              { label: 'Email', href: 'mailto:wahidtratul@gmail.com', path: '' },
+            ].map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} style={{ color: '#64748b', display: 'inline-flex' }}>
+                {s.label === 'Email' ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d={s.path} /></svg>
+                )}
               </a>
             ))}
-          </div>
-
-          <div style={{ fontSize: "0.7rem", color: "var(--foreground-subtle)", lineHeight: 1.6, maxWidth: "640px" }}>
-            Written case study: all architecture, processes, and methodologies described from first-hand work at Optimizely. No customer data, proprietary schemas, or confidential records are reproduced.
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <div style={{
-                width: "22px", height: "22px", borderRadius: "5px",
-                background: "linear-gradient(135deg, #6366f1, #818cf8)",
-                boxShadow: "0 0 8px rgba(99,102,241,0.3)",
-              }} />
-              <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--foreground)" }}>Wahid Tawsif Ratul</span>
-                <span style={{ fontSize: "0.72rem", color: "var(--foreground-subtle)" }}>Data Scientist · Product Manager</span>
-              </span>
-            </div>
-            <a
-              href="https://github.com/ratul003/product-intelligence-platform"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: "8px",
-                fontSize: "0.82rem", fontWeight: 600, color: "var(--foreground-muted)",
-                textDecoration: "none", border: "1px solid var(--border)",
-                borderRadius: "8px", padding: "7px 14px",
-                transition: "border-color 0.2s, color 0.2s",
-              }}
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-              </svg>
-              GitHub
-            </a>
           </div>
         </div>
       </footer>
