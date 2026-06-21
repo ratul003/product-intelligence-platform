@@ -10,9 +10,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://product-intelligence-platform.vercel.app"),
-  title: "Product Intelligence Platform — Wahid Tawsif Ratul",
+  title: "Product Intelligence Platform · Wahid Tawsif Ratul",
   description:
-    "Case study: Building a warehouse-native product analytics platform from zero — Segment instrumentation, Snowflake, Mixpanel, and an in-house analytics platform across the product suite.",
+    "Case study: building a warehouse-native product analytics platform from zero, with Segment instrumentation, Snowflake, Mixpanel, and an in-house analytics platform across the product suite.",
   openGraph: {
     title: "Product Intelligence Platform",
     description:

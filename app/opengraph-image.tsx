@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Product Intelligence Platform — Wahid Tawsif Ratul";
+export const alt = "Product Intelligence Platform · Wahid Tawsif Ratul";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -21,7 +21,7 @@ export default function Image() {
           fontFamily: "sans-serif",
         }}
       >
-        {/* Top — eyebrow */}
+        {/* Top: eyebrow */}
         <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
           <div
             style={{
@@ -67,7 +67,7 @@ export default function Image() {
           </div>
         </div>
 
-        {/* Middle — title + subtitle */}
+        {/* Middle: title + subtitle */}
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
@@ -95,7 +95,7 @@ export default function Image() {
           </div>
         </div>
 
-        {/* Bottom — name + stack */}
+        {/* Bottom: name + stack */}
         <div
           style={{
             display: "flex",

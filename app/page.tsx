@@ -616,7 +616,7 @@ function EventTransform() {
         ])}
       </div>
       <p style={{ marginTop: "12px", fontSize: "0.7rem", color: "var(--foreground-subtle)", fontStyle: "italic", lineHeight: 1.6 }}>
-        Field names illustrative: not production schema. Functions normalise event naming, attach the canonical account key and identity, flag internal traffic, and drop PII before fan-out.
+        Field names illustrative, not production schema. Functions normalise event naming, attach the canonical account key and identity, flag internal traffic, and drop PII before fan-out.
       </p>
     </div>
   );
@@ -1052,7 +1052,7 @@ function SegmentPipelineDetail() {
           },
           {
             step: "02", label: "Protocols enforcement",
-            detail: "Every incoming event is validated against the Tracking Plan in Segment Protocols. Events not in the plan are blocked at ingestion: not routed, not warehoused. Schema drift never reaches the warehouse silently.",
+            detail: "Every incoming event is validated against the Tracking Plan in Segment Protocols. Events not in the plan are blocked at ingestion, not routed, not warehoused. Schema drift never reaches the warehouse silently.",
             color: "#6366f1",
           },
           {
@@ -1279,7 +1279,7 @@ function RetentionImpactCharts() {
         { name: "Engaged ARR %", color: "#10b981", values: [44, 47, 52, 57, 61, 65, 68, 71] },
         { name: "At-risk (non-engaged) ARR %", color: "#f43f5e", values: [56, 53, 48, 43, 39, 35, 32, 29] },
       ],
-      caption: "As engaged ARR rose the at-risk surface shrank: and net revenue retention expanded from ~104% to ~118% over the same window.",
+      caption: "As engaged ARR rose the at-risk surface shrank, and net revenue retention expanded from ~104% to ~118% over the same window.",
     },
   ];
   return (
@@ -2068,7 +2068,7 @@ export default function Home() {
                   {
                     icon: "◈",
                     title: "No shared data standard across 8 products",
-                    body: "Each product tracked events differently: or not at all. Different identifiers, different naming conventions, different schemas. Cross-product analysis was structurally impossible, not just difficult.",
+                    body: "Each product tracked events differently, or not at all. Different identifiers, different naming conventions, different schemas. Cross-product analysis was structurally impossible, not just difficult.",
                   },
                   {
                     icon: "◈",
@@ -2127,7 +2127,7 @@ export default function Home() {
                 {
                   n: "03",
                   title: "Event taxonomy principles",
-                  body: "Event names follow a strict convention: product prefix, object–action pattern, no dynamic values baked in. Dynamic data belongs in properties: not in the event name. Names with IDs or free text baked in break group-by analysis and make metrics impossible to define cleanly.",
+                  body: "Event names follow a strict convention: product prefix, object–action pattern, no dynamic values baked in. Dynamic data belongs in properties, not in the event name. Names with IDs or free text baked in break group-by analysis and make metrics impossible to define cleanly.",
                   color: "#6366f1",
                 },
                 {
@@ -2385,7 +2385,7 @@ export default function Home() {
 
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {[
-                  { q: "Why a stable user key?", a: "User identifiers that reset between sessions or devices make funnel analysis unreliable. Using email as the user key ensures continuity across re-authentication and device changes: and is a natural join to CRM records." },
+                  { q: "Why a stable user key?", a: "User identifiers that reset between sessions or devices make funnel analysis unreliable. Using email as the user key ensures continuity across re-authentication and device changes, and is a natural join to CRM records." },
                   { q: "Why one shared account key?", a: "Each product has its own internal account ID. Without a canonical cross-product key, every cross-product join requires a bespoke lookup table. One key resolves all products to the same account: enabling cross-product cohort analysis at query time." },
                   { q: "What does the identity graph solve?", a: "Users interact anonymously before logging in. Without identity resolution, pre-login behaviour disappears from activation funnels. Segment Unify retroactively stitches these sessions to known accounts: essential for accurate top-of-funnel analysis." },
                   { q: "How do product-specific IDs resolve?", a: "Some products use their own internal account IDs. A product-to-account mapping layer in the warehouse resolves these to the canonical key: enabling revenue analysis against product-specific engagement data without restructuring the source systems." },
@@ -2428,7 +2428,7 @@ export default function Home() {
                     My decision
                   </div>
                   <p style={{ fontSize: "0.78rem", color: "var(--foreground-muted)", lineHeight: 1.6 }}>
-                    Mixpanel was working. The migration was my recommendation: not mandated. I made the case to leadership based on sync fragility, per-user pricing trajectory, and the structural inability to join behavioural data to ARR without custom pipelines. The full architecture decision record is in the{" "}
+                    Mixpanel was working. The migration was my recommendation, not mandated. I made the case to leadership based on sync fragility, per-user pricing trajectory, and the structural inability to join behavioural data to ARR without custom pipelines. The full architecture decision record is in the{" "}
                     <a href="https://systems-architecture.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Systems Architecture case study</a>.
                   </p>
                 </div>
@@ -2463,7 +2463,7 @@ export default function Home() {
               borderRadius: "14px", padding: "22px 26px", maxWidth: "800px",
             }}>
               <div style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--accent)", marginBottom: "10px" }}>
-                What a Level 1 metric is: and what it does
+                What a Level 1 metric is, and what it does
               </div>
               <p style={{ fontSize: "0.88rem", color: "var(--foreground-muted)", lineHeight: 1.75 }}>
                 A Level 1 metric is a product&apos;s single, canonical definition of an{" "}
@@ -2510,7 +2510,7 @@ export default function Home() {
                   },
                   {
                     pattern: "Conditional composite flags",
-                    construct: "Multi-clause definitions that fuse engagement intensity, persistence, ARR and exclusions into a single signal: not a blunt active / inactive split.",
+                    construct: "Multi-clause definitions that fuse engagement intensity, persistence, ARR and exclusions into a single signal, not a blunt active / inactive split.",
                     example: "A churn-risk flag firing when low weekly activity persists ~4 weeks AND ARR sits above a high-value line AND collaboration-only / asset-only seats are excluded.",
                     color: "#f59e0b",
                   },
@@ -2528,7 +2528,7 @@ export default function Home() {
                   },
                   {
                     pattern: "Outlier-resistant central tendency",
-                    construct: "Median chosen over mean wherever a handful of heavy accounts would distort the benchmark: so the typical account is represented honestly.",
+                    construct: "Median chosen over mean wherever a handful of heavy accounts would distort the benchmark, so the typical account is represented honestly.",
                     example: "Median credits per account by purchase tier: a realistic per-segment bar, not a whale-skewed average.",
                     color: "#a5b4fc",
                   },
@@ -2759,7 +2759,7 @@ export default function Home() {
                   {
                     step: "01",
                     title: "Monthly risk tier export",
-                    desc: "Each month, account risk tiers were calculated from the warehouse and pushed to the CS team as a prioritised list: not a dashboard for self-serve, but a structured output ready to action.",
+                    desc: "Each month, account risk tiers were calculated from the warehouse and pushed to the CS team as a prioritised list, not a dashboard for self-serve, but a structured output ready to action.",
                     color: "#6366f1",
                   },
                   {
@@ -3065,7 +3065,7 @@ export default function Home() {
             <Label>Agentic AI Measurement</Label>
             <Heading className="gradient-heading">Measurement infrastructure for enterprise AI at production scale</Heading>
             <Body>
-              When the AI orchestration platform shipped, I had no reference point for measuring AI orchestration platform behaviour at product scale. Nobody did. I had to figure out what &ldquo;engagement&rdquo; even means for an agent: not a click, not a pageview, but a task completion spanning multiple tool calls. I extended the existing Segment contract with three new event types and built the measurement layer from scratch, no new infrastructure needed.
+              When the AI orchestration platform shipped, I had no reference point for measuring AI orchestration platform behaviour at product scale. Nobody did. I had to figure out what &ldquo;engagement&rdquo; even means for an agent, not a click, not a pageview, but a task completion spanning multiple tool calls. I extended the existing Segment contract with three new event types and built the measurement layer from scratch, no new infrastructure needed.
             </Body>
 
             <div className="card-hover card-tier card-tier-indigo" style={{
@@ -3116,7 +3116,7 @@ export default function Home() {
 
             <div style={{ marginTop: "24px" }}>
               <div style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--foreground-subtle)", marginBottom: "16px" }}>
-                How the AI orchestration platform executes: and how it&apos;s measured
+                How the AI orchestration platform executes, and how it&apos;s measured
               </div>
               <div className="card-hover" style={{
                 background: "var(--surface)", border: "1px solid var(--border-subtle)",
@@ -3190,9 +3190,9 @@ export default function Home() {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "12px" }}>
                 {[
                   { point: "Reusability", desc: "The Engagement Analyst agent isn't only used by the Monthly Report workflow: the same agent handles on-demand PM queries. One agent, many callers.", color: "#6366f1" },
-                  { point: "Debuggability", desc: "When a number looks wrong, the fault is isolated to one agent and one tool: not a monolithic prompt that produces everything at once.", color: "#10b981" },
+                  { point: "Debuggability", desc: "When a number looks wrong, the fault is isolated to one agent and one tool, not a monolithic prompt that produces everything at once.", color: "#10b981" },
                   { point: "Typed data layer", desc: "MCP tools return structured JSON, not natural language. The synthesis layer gets clean data, not agent-interpreted prose that can drift.", color: "#f59e0b" },
-                  { point: "Composable coverage", desc: "A new workflow (board prep, sales territory briefing) is assembled from existing agents: not built from scratch each time.", color: "#a5b4fc" },
+                  { point: "Composable coverage", desc: "A new workflow (board prep, sales territory briefing) is assembled from existing agents, not built from scratch each time.", color: "#a5b4fc" },
                 ].map(({ point, desc, color }) => (
                   <div key={point}>
                     <div style={{ fontSize: "0.8rem", fontWeight: 700, color, marginBottom: "4px" }}>{point}</div>
