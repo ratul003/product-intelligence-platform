@@ -350,7 +350,7 @@ function PipelineDiagram() {
       {/* Row 1: Products */}
       <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "6px", flexWrap: "nowrap" }}>
         <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--foreground-subtle)", marginRight: "4px", whiteSpace: "nowrap" }}>User Events</span>
-        {["Experimentation", "Content Marketing Platform", "AI Agent", "Customer Data Platform (CDP)", "Product Recommendations", "Content Management System", "Search & Navigation", "Configured Commerce"].map((p) => (
+        {["Experimentation", "Content Marketing Platform", "AI Orchestration", "Customer Data Platform (CDP)", "Product Recommendations", "Content Management System", "Search & Navigation", "Configured Commerce"].map((p) => (
           <div key={p} style={{
             background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)",
             borderRadius: "6px", padding: "4px 10px", fontSize: "0.72rem", fontWeight: 700,
@@ -418,7 +418,7 @@ function PipelineDiagram() {
 
 function AgentExecFlow() {
   const steps: { label: string; sub: string; color: string; annotation: { event: string; desc: string; color: string } | null }[] = [
-    { label: "User Prompt", sub: "AI agent interface", color: "#a5b4fc", annotation: null },
+    { label: "User Prompt", sub: "AI orchestration platform interface", color: "#a5b4fc", annotation: null },
     { label: "Agent Router", sub: "selects agent type", color: "#818cf8", annotation: { event: "Discovery event", desc: "Which agents are found and opened: discoverability measured at entry", color: "#c4b5fd" } },
     { label: "Tool Chain", sub: "sequential invocations", color: "#6366f1", annotation: { event: "Tool invocation", desc: "Every call: name · execution context · outcome · latency", color: "#818cf8" } },
     { label: "LLM Inference", sub: "per tool call", color: "#4f46e5", annotation: null },
@@ -679,7 +679,7 @@ function DashboardUsabilityMap() {
     { dash: "Engagement × ARR", aud: "Executive / Steerco", dec: "Where to invest · board narrative", color: "#f59e0b" },
     { dash: "Feature adoption funnels", aud: "Product Managers", dec: "Roadmap prioritisation", color: "#6366f1" },
     { dash: "Account health scores", aud: "Customer Success", dec: "Churn intervention before risk", color: "#10b981" },
-    { dash: "AI Agent usage & attach", aud: "Sales / GTM", dec: "AI expansion targeting", color: "#a5b4fc" },
+    { dash: "AI orchestration usage & attach", aud: "Sales / GTM", dec: "AI expansion targeting", color: "#a5b4fc" },
   ];
   return (
     <div style={{ overflowX: "auto" }}>
@@ -962,7 +962,7 @@ function DbtModelDag() {
         { name: "stg_segment_events", note: "events stream" },
         { name: "stg_salesforce_accounts", note: "CRM accounts" },
         { name: "stg_billing_usage", note: "usage + credits" },
-        { name: "stg_opal_interactions", note: "AI agent events" },
+        { name: "stg_ai_orchestration_interactions", note: "AI orchestration platform events" },
       ],
     },
     {
@@ -996,7 +996,7 @@ function DbtModelDag() {
       desc: "Pre-aggregated for dashboards. Thin slice on top of mart.",
       models: [
         { name: "rpt_level1_metrics", note: "monthly engagement" },
-        { name: "rpt_ai_agent_usage", note: "AI agent credit billing" },
+        { name: "rpt_ai_orchestration_usage", note: "AI orchestration platform credit billing" },
         { name: "rpt_gtm_signals", note: "expansion flags" },
         { name: "rpt_exec_summary", note: "board / steerco" },
       ],
@@ -1334,8 +1334,8 @@ function SpecializedAgentsGrid() {
       ],
     },
     {
-      name: "AI Agent Usage",
-      purpose: "Surfaces AI platform adoption: agent executions, tool usage rankings, credit consumption by tier.",
+      name: "AI Orchestration Usage",
+      purpose: "Surfaces AI orchestration platform adoption: agent executions, tool usage rankings, credit consumption by tier.",
       color: "#a5b4fc",
       tools: [
         { fn: "get_agent_executions", sig: "(scope, period)" },
@@ -1523,14 +1523,14 @@ function AgentArchitectureStack() {
   const workflows = [
     { id: "monthly", name: "Monthly Report", agents: ["engagement", "account", "experiment"] },
     { id: "board", name: "Board Prep", agents: ["engagement", "account"] },
-    { id: "cs", name: "CS Intelligence", agents: ["account", "ai_agent"] },
+    { id: "cs", name: "CS Intelligence", agents: ["account", "ai_orchestration"] },
   ];
 
   const agents = [
     { id: "engagement", name: "Engagement Analyst", color: "#6366f1", tools: ["get_level1_metrics", "get_feature_adoption", "get_cohort_trends", "get_segment_breakdown"] },
     { id: "account",    name: "Account Health",      color: "#10b981", tools: ["get_account_profile", "get_risk_tier", "get_peer_benchmarks", "get_engagement_history"] },
     { id: "experiment", name: "Experiment Velocity", color: "#f59e0b", tools: ["get_experiment_counts", "get_qualification_rate", "get_win_rate", "compare_ai_vs_manual"] },
-    { id: "ai_agent",   name: "AI Agent Usage",      color: "#a5b4fc", tools: ["get_agent_executions", "get_tool_usage_ranking", "get_credit_consumption", "get_attach_rate"] },
+    { id: "ai_orchestration",   name: "AI Orchestration Usage",      color: "#a5b4fc", tools: ["get_agent_executions", "get_tool_usage_ranking", "get_credit_consumption", "get_attach_rate"] },
   ];
 
   const activeWorkflowObj = workflows.find(w => w.id === activeWorkflow);
@@ -1955,7 +1955,7 @@ export default function Home() {
               instrumentation contract, set up the identity layer that made ARR-linked engagement possible,
               defined product metrics alongside PMs and feature owners, drove the migration to a
               warehouse-native reporting platform, and extended the whole thing to measure AI at production
-              scale when the AI agent shipped.
+              scale when the AI orchestration platform shipped.
             </p>
 
             {/* Stat pills */}
@@ -2001,7 +2001,7 @@ export default function Home() {
                 {[
                   "8 engineering teams aligned to a single instrumentation standard: analytics owns the approval gate; no event ships without review",
                   "Product engagement became joinable to ARR for the first time: enabling data-backed GTM plays across Financial Services, Healthcare, and AI verticals",
-                  "Designed the measurement infrastructure for the platform&apos;s AI product (the AI agent) from first principles: a new analytics discipline with no existing playbook, now powering commercial expansion decisions",
+                  "Designed the measurement infrastructure for the platform&apos;s AI product (the AI orchestration platform) from first principles: a new analytics discipline with no existing playbook, now powering commercial expansion decisions",
                 ].map((outcome) => (
                   <div key={outcome} style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
                     <div style={{
@@ -2190,7 +2190,7 @@ export default function Home() {
                 {[
                   { ex: "EXP - Experiment_Started", v: true },
                   { ex: "CONTENT - Task_Created", v: true },
-                  { ex: "AI_AGENT - Agent_Executed", v: true },
+                  { ex: "AI_ORCHESTRATION - Agent_Executed", v: true },
                   { ex: "Experiment 1234 was Started", v: false },
                 ].map(({ ex, v }) => (
                   <div key={ex} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px", fontFamily: "ui-monospace, monospace", fontSize: "0.82rem" }}>
@@ -2215,7 +2215,7 @@ export default function Home() {
                     Teams onboarded
                   </div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                    {["Experimentation", "Content Marketing Platform", "AI Agent", "Customer Data Platform (CDP)", "Product Recommendations", "Content Management System", "Search & Navigation", "Configured Commerce"].map((t) => (
+                    {["Experimentation", "Content Marketing Platform", "AI Orchestration", "Customer Data Platform (CDP)", "Product Recommendations", "Content Management System", "Search & Navigation", "Configured Commerce"].map((t) => (
                       <span key={t} style={{
                         background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)",
                         borderRadius: "5px", padding: "3px 9px", fontSize: "0.72rem", color: "#a5b4fc", fontWeight: 500,
@@ -2435,9 +2435,9 @@ export default function Home() {
                 <div><Tag color="#6366f1">Analytics Platform</Tag><Tag color="#6366f1">Warehouse-Native</Tag><Tag color="#6366f1">ARR Joins</Tag></div>
               </Phase>
               <Phase n="3" title="Agentic AI Extension">
-                <p>When the AI agent shipped, the same Segment rails were extended with new event types covering AI tool invocations, agent executions, and discovery interactions. No new infrastructure: the contract, identity model, and pipeline all carried AI data with the same rigour as any product feature.</p>
+                <p>When the AI orchestration platform shipped, the same Segment rails were extended with new event types covering AI tool invocations, agent executions, and discovery interactions. No new infrastructure: the contract, identity model, and pipeline all carried AI data with the same rigour as any product feature.</p>
                 <p style={{ marginTop: "10px" }}>This required designing a measurement framework for an entirely new product category: defining what &quot;engagement&quot; means for an AI agent, not a button click.</p>
-                <div><Tag color="#6366f1">AI Agent</Tag><Tag color="#6366f1">Agent Measurement</Tag><Tag color="#6366f1">AI-Scale Tracking</Tag></div>
+                <div><Tag color="#6366f1">AI Orchestration</Tag><Tag color="#6366f1">Agent Measurement</Tag><Tag color="#6366f1">AI-Scale Tracking</Tag></div>
               </Phase>
             </div>
           </div>
@@ -2569,7 +2569,7 @@ export default function Home() {
               <p style={{ marginTop: "12px", fontSize: "0.76rem", color: "var(--foreground-subtle)", lineHeight: 1.6, maxWidth: "780px" }}>
                 Experimentation is measured as three distinct lines: Web Experimentation, Feature
                 Experimentation, and Personalization: each with its own engaged-ARR penetration against
-                its own revenue base. The AI agent sits outside this family on a consumption model (credit
+                its own revenue base. The AI orchestration platform sits outside this family on a consumption model (credit
                 registration, tier benchmarks, and cross-product attach %), shown in the segmentation
                 layer below.
               </p>
@@ -2625,7 +2625,7 @@ export default function Home() {
                     note: "Feature-level metrics drive Content Marketing Platform roadmap prioritisation and surface underutilised capabilities",
                   },
                   {
-                    product: "AI Agent (AI Platform)",
+                    product: "AI orchestration platform",
                     features: ["Agent builder adoption", "OOTB agent usage by category", "Custom agent creation", "Multi-step workflow agents"],
                     color: "#f59e0b",
                     note: "AI feature metrics directly inform which agent types to invest in and where to simplify onboarding",
@@ -2671,7 +2671,7 @@ export default function Home() {
                     note: "Three-tier segmentation turns a binary engaged/not metric into a prioritised CS action list",
                   },
                   {
-                    product: "AI Agent (AI Platform)",
+                    product: "AI orchestration platform",
                     color: "#f59e0b",
                     tiers: [
                       { label: "Advanced Tier accounts", desc: "Highest credit allocation: credit consumption benchmark tracked separately per tier", color: "#f59e0b" },
@@ -2681,11 +2681,11 @@ export default function Home() {
                     note: "Tier-split benchmarks let CS set realistic activation targets per customer segment, not one-size averages",
                   },
                   {
-                    product: "Experimentation + AI Agent (Cross-Product)",
+                    product: "Experimentation + AI orchestration platform (Cross-Product)",
                     color: "#6366f1",
                     tiers: [
-                      { label: "Eligible accounts", desc: "Paid on both Experimentation and the AI agent: the addressable cross-product base", color: "#a5b4fc" },
-                      { label: "Active accounts", desc: "AI-agent-provisioned Experimentation customers with registered credit usage in the AI agent", color: "#818cf8" },
+                      { label: "Eligible accounts", desc: "Paid on both Experimentation and the AI orchestration platform: the addressable cross-product base", color: "#a5b4fc" },
+                      { label: "Active accounts", desc: "Experimentation customers provisioned on the AI orchestration platform with registered credit usage in the AI orchestration platform", color: "#818cf8" },
                       { label: "Cross-product utilisation rate", desc: "Active / eligible: the attach metric, updated monthly, used in the AI expansion commercial play", color: "#6366f1" },
                     ],
                     note: "The first native cross-product utilisation metric: only possible because both products share the same canonical account key",
@@ -2812,7 +2812,7 @@ export default function Home() {
                 dashboards={[
                   "Product engagement by ARR segment",
                   "Cross-product adoption rates",
-                  "AI Agent revenue impact overview",
+                  "AI orchestration platform revenue impact overview",
                   "Quarterly engagement trends vs targets",
                 ]}
                 metrics={["ARR-linked engagement", "Quarterly trends", "Segment benchmarks", "Executive KPIs"]}
@@ -2825,7 +2825,7 @@ export default function Home() {
                 borderClass="card-tier-indigo"
                 dashboards={[
                   "Product usage & adoption by feature",
-                  "AI Agent usage across Experimentation and Content Marketing Platform",
+                  "AI orchestration platform usage across Experimentation and Content Marketing Platform",
                   "Dev Agent experiment quality analysis",
                   "Agent directory adoption and discovery",
                   "Feature adoption funnels by release cohort",
@@ -2841,7 +2841,7 @@ export default function Home() {
                 dashboards={[
                   "Account health scores",
                   "Experimentation contract overage signals",
-                  "AI Agent adoption and attach analysis",
+                  "AI orchestration platform adoption and attach analysis",
                   "Usage forecast for capacity planning",
                   "DXP overage and expansion flags",
                 ]}
@@ -2953,7 +2953,7 @@ export default function Home() {
 
             <div style={{ marginTop: "32px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "12px" }}>
               {[
-                { step: "01", label: "Data pull from Snowflake", sub: "Level 1 engagement, feature adoption, AI agent usage, and experiment velocity: queried directly from the warehouse" },
+                { step: "01", label: "Data pull from Snowflake", sub: "Level 1 engagement, feature adoption, AI orchestration platform usage, and experiment velocity: queried directly from the warehouse" },
                 { step: "02", label: "Analysis and narrative layer", sub: "Trend identification, cohort comparisons, MoM movements, and key insights connecting data to product and commercial context" },
                 { step: "03", label: "Coda document compiled", sub: "Structured report combining visualisations, narrative, notable account callouts, and recommended actions" },
                 { step: "04", label: "ELT distribution", sub: "Distributed to the Executive Leadership Team monthly: used for product strategy discussions, roadmap inputs, and commercial briefings" },
@@ -3036,7 +3036,7 @@ export default function Home() {
                 {
                   type: "AI Attach",
                   title: "Behavioural data as the commercial proof point",
-                  desc: "AI-assisted experiments qualified at measurably higher rates. That signal became the evidence base for the AI agent attach motion: replacing product marketing claims with accounts-that-look-like-this data.",
+                  desc: "AI-assisted experiments qualified at measurably higher rates. That signal became the evidence base for the AI orchestration platform attach motion: replacing product marketing claims with accounts-that-look-like-this data.",
                   color: "#f59e0b",
                 },
               ].map(({ type, title, desc, color }) => (
@@ -3065,7 +3065,7 @@ export default function Home() {
             <Label>Agentic AI Measurement</Label>
             <Heading className="gradient-heading">Measurement infrastructure for enterprise AI at production scale</Heading>
             <Body>
-              When the AI agent shipped, I had no reference point for measuring AI agent behaviour at product scale. Nobody did. I had to figure out what &ldquo;engagement&rdquo; even means for an agent: not a click, not a pageview, but a task completion spanning multiple tool calls. I extended the existing Segment contract with three new event types and built the measurement layer from scratch, no new infrastructure needed.
+              When the AI orchestration platform shipped, I had no reference point for measuring AI orchestration platform behaviour at product scale. Nobody did. I had to figure out what &ldquo;engagement&rdquo; even means for an agent: not a click, not a pageview, but a task completion spanning multiple tool calls. I extended the existing Segment contract with three new event types and built the measurement layer from scratch, no new infrastructure needed.
             </Body>
 
             <div className="card-hover card-tier card-tier-indigo" style={{
@@ -3087,7 +3087,7 @@ export default function Home() {
             <div style={{ marginTop: "24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
               {/* Root node */}
               <div style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.3)", borderRadius: "12px", padding: "11px 28px", textAlign: "center" }}>
-                <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#a5b4fc" }}>AI Agent Execution</div>
+                <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#a5b4fc" }}>AI Orchestration Execution</div>
                 <div style={{ fontSize: "0.68rem", color: "var(--foreground-muted)", marginTop: "3px" }}>emits three event types per execution</div>
               </div>
               {/* SVG branch connector */}
@@ -3116,7 +3116,7 @@ export default function Home() {
 
             <div style={{ marginTop: "24px" }}>
               <div style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--foreground-subtle)", marginBottom: "16px" }}>
-                How an AI agent executes: and how it&apos;s measured
+                How the AI orchestration platform executes: and how it&apos;s measured
               </div>
               <div className="card-hover" style={{
                 background: "var(--surface)", border: "1px solid var(--border-subtle)",
@@ -3133,7 +3133,7 @@ export default function Home() {
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px" }}>
                   {[
-                    { title: "AI roadmap evidence", desc: "First-time visibility into which agent types and tools customers actually use: directly powering AI agent product roadmap prioritisation.", color: "#a5b4fc" },
+                    { title: "AI roadmap evidence", desc: "First-time visibility into which agent types and tools customers actually use: directly powering AI orchestration platform product roadmap prioritisation.", color: "#a5b4fc" },
                     { title: "Evidence-based upsell", desc: "AI-assisted experiments qualify at higher rates: a data-backed proof point replacing product marketing claims in the commercial attach motion.", color: "#818cf8" },
                     { title: "Ecosystem visibility", desc: "Customer-built agents mapped by type and usage: inputs to infrastructure scaling and enterprise sales conversations.", color: "#c4b5fd" },
                   ].map(({ title, desc, color }) => (
@@ -3153,9 +3153,9 @@ export default function Home() {
         <section style={secAlt}>
           <div style={wrap}>
             <Label>Agentic AI for Analytics</Label>
-            <Heading className="gradient-heading">Building analytics agents on top of the AI agent: specialized agents, MCP tools, and workflow orchestration</Heading>
+            <Heading className="gradient-heading">Building analytics agents on top of the AI orchestration platform: specialized agents, MCP tools, and workflow orchestration</Heading>
             <Body>
-              I built a two-layer agent system inside the AI agent. Specialized agents each own one analytics domain and expose their capabilities as MCP tools: typed functions that execute live queries against the in-house analytics platform. Workflow agents sit above them, orchestrating the specialists in sequence or parallel, synthesising their outputs into a narrative, and pushing the result to Coda, Outlook, or Teams. The monthly product report runs on this stack automatically.
+              I built a two-layer agent system inside the AI orchestration platform. Specialized agents each own one analytics domain and expose their capabilities as MCP tools: typed functions that execute live queries against the in-house analytics platform. Workflow agents sit above them, orchestrating the specialists in sequence or parallel, synthesising their outputs into a narrative, and pushing the result to Coda, Outlook, or Teams. The monthly product report runs on this stack automatically.
             </Body>
 
             {/* Architecture stack */}
@@ -3229,11 +3229,11 @@ export default function Home() {
               {/* Arrow down */}
               <div style={{ textAlign: "center", color: "var(--accent)", fontSize: "1.2rem", marginBottom: "12px", opacity: 0.7 }}>↓</div>
 
-              {/* AI agent hub */}
+              {/* AI orchestration platform hub */}
               <div style={{ background: "rgba(99,102,241,0.06)", border: "1px solid rgba(99,102,241,0.3)", borderRadius: "16px", padding: "20px 24px", marginBottom: "12px", boxShadow: "0 0 32px rgba(99,102,241,0.06)" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px", marginBottom: "16px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <span style={{ fontSize: "1rem", fontWeight: 800, color: "var(--accent)" }}>AI Agent</span>
+                    <span style={{ fontSize: "1rem", fontWeight: 800, color: "var(--accent)" }}>AI Orchestration</span>
                     <span style={{ fontSize: "0.58rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#34d399", background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)", borderRadius: "20px", padding: "2px 8px" }}>reasoning + tool calls</span>
                   </div>
                 </div>
@@ -3359,9 +3359,9 @@ export default function Home() {
                   category: "AI feature adoption",
                   color: "#f59e0b",
                   outcomes: [
-                    "AI Agent adoption measured from day one: tool usage, agent types, workflow patterns, and feature engagement",
+                    "AI orchestration platform adoption measured from day one: tool usage, agent types, workflow patterns, and feature engagement",
                     "AI-assisted experiments showed measurably higher qualification rates: a data-backed upsell narrative for the commercial team",
-                    "Agent utilisation patterns informed which AI agent capabilities to invest in vs. simplify",
+                    "Agent utilisation patterns informed which AI orchestration platform capabilities to invest in vs. simplify",
                   ],
                 },
                 {

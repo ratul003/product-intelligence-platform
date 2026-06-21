@@ -44,7 +44,7 @@ TIER_COLORS = {
 TIER_ORDER = ["Engaged", "Low engagement", "Non-engaged"]
 
 SNOWFLAKE_CONFIG = {
-    "account":   os.getenv("SNOWFLAKE_ACCOUNT",   "OPTIMIZELY_DATA_SERVICES"),
+    "account":   os.getenv("SNOWFLAKE_ACCOUNT",   "ANALYTICS_DATA_SERVICES"),
     "user":      os.getenv("SNOWFLAKE_USER",       "WAHIDRATUL"),
     "role":      os.getenv("SNOWFLAKE_ROLE",       "ANALYST"),
     "warehouse": os.getenv("SNOWFLAKE_WAREHOUSE",  "ANALYST_WH"),
