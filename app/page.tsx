@@ -1014,9 +1014,9 @@ function DbtModelDag() {
             </div>
             <div style={{ fontSize: "0.7rem", color: "var(--foreground-subtle)", lineHeight: 1.5, paddingLeft: "2px" }}>{layer.desc}</div>
             {layer.models.map((m) => (
-              <div key={m.name} style={{ background: "var(--surface)", border: `1px solid ${layer.color}20`, borderRadius: "8px", padding: "7px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+              <div key={m.name} style={{ background: "var(--surface)", border: `1px solid ${layer.color}20`, borderRadius: "8px", padding: "7px 12px", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "2px 8px" }}>
                 <code style={{ fontSize: "0.72rem", color: "var(--foreground)", fontFamily: "ui-monospace, monospace", fontWeight: 600 }}>{m.name}</code>
-                <span style={{ fontSize: "0.62rem", color: layer.color, fontWeight: 600, whiteSpace: "nowrap" }}>{m.note}</span>
+                <span style={{ fontSize: "0.62rem", color: layer.color, fontWeight: 600, textAlign: "right" }}>{m.note}</span>
               </div>
             ))}
             {li < layers.length - 1 && (
@@ -1764,7 +1764,7 @@ function ChapterTransition({ from, to }: { from: string; to: string }) {
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 24px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "18px 0" }}>
         <div style={{ flex: 1, height: "1px", background: "var(--border-subtle)" }} />
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", background: "var(--surface)", border: "1px solid var(--border-subtle)", borderRadius: "20px", padding: "6px 16px", flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "10px", background: "var(--surface)", border: "1px solid var(--border-subtle)", borderRadius: "20px", padding: "6px 16px", flexShrink: 1, minWidth: 0, maxWidth: "100%" }}>
           <span style={{ fontSize: "0.72rem", color: "var(--foreground-subtle)" }}>{from}</span>
           <span style={{ color: "var(--accent)", fontSize: "0.8rem" }}>→</span>
           <span style={{ fontSize: "0.72rem", fontWeight: 600, color: "var(--foreground)" }}>{to}</span>
@@ -1812,15 +1812,17 @@ function InstrumentationFlow() {
   );
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-      <div style={{ display: "flex", alignItems: "stretch", gap: "0" }}>
-        {row1.map((s, i) => <Card key={s.n} s={s} arrowRight={i < row1.length - 1} />)}
-      </div>
-      <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: "0" }}>
-        <span style={{ color: "var(--foreground-subtle)", fontSize: "0.9rem" }}>↓</span>
-      </div>
-      <div style={{ display: "flex", alignItems: "stretch", gap: "0" }}>
-        {row2.map((s, i) => <Card key={s.n} s={s} arrowLeft={i < row2.length - 1} />)}
+    <div style={{ overflowX: "auto", maxWidth: "100%" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px", minWidth: "640px" }}>
+        <div style={{ display: "flex", alignItems: "stretch", gap: "0" }}>
+          {row1.map((s, i) => <Card key={s.n} s={s} arrowRight={i < row1.length - 1} />)}
+        </div>
+        <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: "0" }}>
+          <span style={{ color: "var(--foreground-subtle)", fontSize: "0.9rem" }}>↓</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "stretch", gap: "0" }}>
+          {row2.map((s, i) => <Card key={s.n} s={s} arrowLeft={i < row2.length - 1} />)}
+        </div>
       </div>
     </div>
   );
@@ -3120,7 +3122,7 @@ export default function Home() {
               </div>
               <div className="card-hover" style={{
                 background: "var(--surface)", border: "1px solid var(--border-subtle)",
-                borderRadius: "14px", padding: "22px",
+                borderRadius: "14px", padding: "22px", overflowX: "auto",
               }}>
                 <AgentExecFlow />
               </div>

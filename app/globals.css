@@ -37,6 +37,21 @@ body {
 
 ::selection { background: rgba(99, 102, 241, 0.25); color: var(--foreground); }
 
+/* ── Horizontal-overflow safety net ─────────────────────────────────────────── */
+/* Wide content scrolls inside its own container instead of pushing the page body
+   sideways. We deliberately avoid `overflow-x: hidden` on html/body, which would
+   clip content out of reach; per-element scroll keeps everything reachable. */
+table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 /* ── Scrollbar ──────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--background); }
