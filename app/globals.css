@@ -208,6 +208,13 @@ pre {
 .section-rail { display: none; }
 @media (min-width: 1280px) { .section-rail { display: flex; } }
 
+/* ── Nav brand text: hide on small screens to keep header within viewport ─── */
+.nav-brand-title { max-width: 220px; }
+@media (max-width: 640px) {
+  .nav-brand-author { display: none !important; }
+  .nav-brand-title { display: none; }
+}
+
 /* ── Accessibility ──────────────────────────────────────────────────────────── */
 
 :focus-visible {
